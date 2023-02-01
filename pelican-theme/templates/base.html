@@ -41,6 +41,8 @@
   {% if M_HTML_HEADER %}
   {{ M_HTML_HEADER|rtrim|indent(2) }}
   {% endif %}
+  <link rel="stylesheet" href="https://files.stork-search.net/basic.css" />
+  <link rel="stylesheet" media="screen and (prefers-color-scheme: dark)" href="https://files.stork-search.net/dark.css">
 </head>
 <body>
 <header><nav id="navigation"{% if page and page.landing and page.cover %} class="m-navbar-landing"{% elif (page and page.cover) or (article and article.cover) %} class="m-navbar-cover"{% endif %}>
@@ -50,6 +52,8 @@
         {%- if M_SITE_LOGO %}<img src="{{ M_SITE_LOGO|format_siteurl|e }}" alt="" />{% endif -%}
         {{- (M_SITE_LOGO_TEXT or SITENAME)|e -}}
       </a>
+      Search: <input data-stork="sitesearch" />
+      <div data-stork="sitesearch-output"></div>
       {% if M_LINKS_NAVBAR1 or M_LINKS_NAVBAR2 %}
       <a id="m-navbar-show" href="#navigation" title="Show navigation" class="m-col-t-3 m-hide-m m-text-right"></a>
       <a id="m-navbar-hide" href="#" title="Hide navigation" class="m-col-t-3 m-hide-m m-text-right"></a>
@@ -181,5 +185,9 @@
   </div>
 </nav></footer>
 {% endif %}
+<script src="https://files.stork-search.net/releases/v1.5.0/stork.js"></script>
+<script>
+    stork.register("sitesearch", "{{ SITEURL }}/search-index.st")
+</script>
 </body>
 </html>
